@@ -153,10 +153,10 @@ AI-агностичный слой для работы с LLM.
 - JSON repair: ``` ```json\n{"a":1}\n``` ``` → `{"a": 1}`
 - `parse_insights()` возвращает список `Insight` из валидного JSON
 
-- [ ] llm/__init__.py
-- [ ] llm/prompts.py
-- [ ] llm/client.py
-- [ ] llm/response_parser.py
+- [x] llm/__init__.py
+- [x] llm/prompts.py
+- [x] llm/client.py
+- [x] llm/response_parser.py
 
 ---
 
@@ -246,7 +246,7 @@ Gradio-интерфейс с кастомными стилями.
 | 1. Фундамент | ✅ Готово |
 | 2. Парсинг | ✅ Готово |
 | 3. Метрики | ✅ Готово |
-| 4. LLM | ⏳ Ожидает |
+| 4. LLM | ✅ Готово |
 | 5. Оркестрация | ⏳ Ожидает |
 | 6. UI | ⏳ Ожидает |
 | 7. Финализация | ⏳ Ожидает |
