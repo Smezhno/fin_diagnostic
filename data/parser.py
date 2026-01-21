@@ -61,30 +61,37 @@ def _parse_csv(path: Path) -> pd.DataFrame:
     """
     Парсит CSV файл.
     
-    Пробует разные кодировки и разделители.
+    Пробует разные кодировки и разделители (запятая, точка с запятой, табуляция).
     """
-    # Пробуем разные кодировки
     encodings = ["utf-8", "cp1251", "latin-1"]
+    separators = [",", ";", "\t"]  # Запятая, точка с запятой, табуляция (TSV)
     
     for encoding in encodings:
-        try:
-            # Сначала пробуем стандартный разделитель (запятая)
-            df = pd.read_csv(path, encoding=encoding)
-            
-            # Если получилась одна колонка — возможно разделитель точка с запятой
-            if len(df.columns) == 1 and ";" in df.columns[0]:
-                df = pd.read_csv(path, encoding=encoding, sep=";")
-            
-            logger.debug(f"CSV прочитан с кодировкой {encoding}, колонок: {len(df.columns)}")
-            return df
-            
-        except UnicodeDecodeError:
-            continue
-        except Exception as e:
-            logger.debug(f"Ошибка с кодировкой {encoding}: {e}")
-            continue
+        for sep in separators:
+            try:
+                df = pd.read_csv(path, encoding=encoding, sep=sep)
+                
+                # Проверяем что получилось больше одной колонки
+                if len(df.columns) > 1:
+                    logger.debug(f"CSV прочитан: encoding={encoding}, sep={repr(sep)}, колонок: {len(df.columns)}")
+                    return df
+                    
+            except UnicodeDecodeError:
+                break  # Пробуем следующую кодировку
+            except Exception as e:
+                logger.debug(f"Ошибка: encoding={encoding}, sep={repr(sep)}: {e}")
+                continue
     
-    raise ParseError("Не удалось определить кодировку CSV файла")
+    # Последняя попытка — автоопределение разделителя
+    try:
+        df = pd.read_csv(path, sep=None, engine='python')
+        if len(df.columns) > 1:
+            logger.debug(f"CSV прочитан с автоопределением разделителя, колонок: {len(df.columns)}")
+            return df
+    except Exception as e:
+        logger.debug(f"Автоопределение не сработало: {e}")
+    
+    raise ParseError("Не удалось определить формат CSV файла. Проверьте разделитель (запятая, точка с запятой или табуляция).")
 
 
 def _parse_excel(path: Path) -> pd.DataFrame:
