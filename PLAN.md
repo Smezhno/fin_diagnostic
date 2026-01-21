@@ -70,10 +70,10 @@ flowchart TB
 - Валидация: `PnLRow(period=date(2024,1,1), revenue=100000)` создаётся успешно
 - Валидация: `PnLRow(period=date(2024,1,1), revenue=-100)` выбрасывает ValidationError
 
-- [ ] config.py
-- [ ] .env.example
-- [ ] data/__init__.py
-- [ ] data/models.py
+- [x] config.py
+- [x] .env.example
+- [x] data/__init__.py
+- [x] data/models.py
 
 ---
 
@@ -243,7 +243,7 @@ Gradio-интерфейс с кастомными стилями.
 
 | Этап | Статус |
 |------|--------|
-| 1. Фундамент | ⏳ Ожидает |
+| 1. Фундамент | ✅ Готово |
 | 2. Парсинг | ⏳ Ожидает |
 | 3. Метрики | ⏳ Ожидает |
 | 4. LLM | ⏳ Ожидает |
