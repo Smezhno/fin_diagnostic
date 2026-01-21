@@ -14,9 +14,10 @@ class Settings(BaseSettings):
     app_name: str = "FinRentgen"
     debug: bool = False
     
-    # === LLM (Wave 1: только OpenAI) ===
+    # === LLM (Wave 1: OpenAI-совместимые API) ===
     openai_api_key: str
     openai_model: str = "gpt-4o"
+    openai_base_url: str = "https://api.openai.com/v1"  # Для Grok: https://api.x.ai/v1
     
     # === Лимиты данных ===
     max_file_size_mb: int = 5

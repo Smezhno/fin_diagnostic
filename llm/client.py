@@ -65,21 +65,25 @@ class LLMClient(Protocol):
 
 class OpenAIClient:
     """
-    Клиент для OpenAI API.
+    Клиент для OpenAI-совместимых API (OpenAI, Grok, и др.).
     
     Особенности:
     - Retry с exponential backoff
     - Таймауты
     - JSON repair
+    - Поддержка custom base_url (для Grok, Azure и др.)
     """
     
     def __init__(self):
-        self.client = OpenAI(api_key=settings.openai_api_key)
+        self.client = OpenAI(
+            api_key=settings.openai_api_key,
+            base_url=settings.openai_base_url
+        )
         self.model = settings.openai_model
         self.max_retries = settings.llm_max_retries
         self.timeout = settings.llm_timeout_seconds
         
-        logger.info(f"OpenAI клиент инициализирован (model={self.model})")
+        logger.info(f"LLM клиент инициализирован (model={self.model}, base_url={settings.openai_base_url})")
     
     def complete(
         self,
