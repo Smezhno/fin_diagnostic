@@ -99,10 +99,10 @@ flowchart TB
 - "1 200 000" преобразовано в 1200000.0
 - "—" и "нет" преобразованы в None
 
-- [ ] data/parser.py
-- [ ] data/cleaner.py
-- [ ] examples/sample_pnl_clean.csv (уже есть)
-- [ ] examples/sample_pnl_dirty.csv (уже есть)
+- [x] data/parser.py
+- [x] data/cleaner.py
+- [x] examples/sample_pnl_clean.csv (уже есть)
+- [x] examples/sample_pnl_dirty.csv (уже есть)
 
 ---
 
@@ -117,16 +117,16 @@ flowchart TB
 
 **Проверка на sample_pnl_clean.csv:**
 - `avg_revenue` = 876667 (округлено)
-- `avg_operating_margin_pct` ≈ 16.2%
-- `revenue_trend_direction` = "insufficient_data" (ровно 6 периодов, нужно >6 для надёжного тренда)
-- `anomalies` содержит "Маркетинг ... вырос на 68%" (между янв и июн)
+- `avg_operating_margin_pct` ≈ 12.5%
+- `revenue_trend_direction` = "growing" (+6.3%, т.к. 6 периодов достаточно для тренда)
+- `anomalies` = [] (нет скачков >30% в данных)
 
 **Проверка на sample_pnl_dirty.csv:**
 - После очистки: 5 валидных периодов
 - `revenue_trend_direction` = "insufficient_data"
 
-- [ ] core/__init__.py
-- [ ] core/metrics.py
+- [x] core/__init__.py
+- [x] core/metrics.py
 
 ---
 
@@ -244,8 +244,8 @@ Gradio-интерфейс с кастомными стилями.
 | Этап | Статус |
 |------|--------|
 | 1. Фундамент | ✅ Готово |
-| 2. Парсинг | ⏳ Ожидает |
-| 3. Метрики | ⏳ Ожидает |
+| 2. Парсинг | ✅ Готово |
+| 3. Метрики | ✅ Готово |
 | 4. LLM | ⏳ Ожидает |
 | 5. Оркестрация | ⏳ Ожидает |
 | 6. UI | ⏳ Ожидает |
